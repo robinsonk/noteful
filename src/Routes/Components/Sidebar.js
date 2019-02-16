@@ -6,21 +6,19 @@ class Sidebar extends Component {
         color: ""
     };
 
-    onToggle = (event) => {
-        event.target.classList.toggle("buttonSelected");
+    handleClick = () => {
+       this.props.sortNotes(this.props.name, this.props.id);
     }
 
   
 
     render() {
         return (
-            this.props.folders.map((key, index) =>
-                <button className="folderName"
-                    onClick={() => this.onToggle()}
-                >
-                   {this.props.folders[index].name}
-                </button>
-            )
+            <button className="folderName"
+                onClick={() => this.handleClick()}
+            >
+                {this.props.name}
+            </button>
         );
     }
   }
