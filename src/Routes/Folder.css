@@ -1,0 +1,32 @@
+ul {
+    margin-top: 155px;    
+    list-style: none;
+    margin-left: -40px;
+}
+
+li {
+    background-color: rgb(16, 21, 29);
+    width: 30%;
+    padding-left: 10px;
+    padding-top: .5px;
+    margin-bottom: 10px;
+}
+
+.remove {
+    vertical-align:top;
+    margin-top: -67.4px;
+    width:147px;
+    height:30px;
+    transform:rotate(7deg);
+    -webkit-transform:rotate(-90deg);
+    margin-left: 339px;
+    background-color: rgb(35, 42, 75);
+    border: none;
+    color: rgb(201, 201, 201);
+  
+}
+
+.remove:hover {
+    background-color: rgb(197, 23, 0);
+    font-weight: bold;
+}

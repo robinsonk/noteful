@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
+import { Route, Link } from 'react-router-dom'
 import './Sidebar.css'
+import store from '../store.js'
 
 class Sidebar extends Component {
     state = {
@@ -14,11 +16,15 @@ class Sidebar extends Component {
 
     render() {
         return (
-            <button className="folderName"
-                onClick={() => this.handleClick()}
-            >
-                {this.props.name}
-            </button>
+            <div>
+                {store.folders.map(folder =>
+                    <Link to={`/folders/${folder.id}`}>
+                        <button key={folder.id} className="folderName">
+                            {folder.name}
+                        </button>
+                    </Link>  
+                )}
+            </div>
         );
     }
   }
