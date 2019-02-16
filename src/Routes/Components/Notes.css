@@ -14,15 +14,16 @@ li {
 
 .remove {
     vertical-align:top;
-    margin-top: -68px;
-    width:146px;
+    margin-top: -67.4px;
+    width:147px;
     height:30px;
     transform:rotate(7deg);
     -webkit-transform:rotate(-90deg);
-    margin-left: 340px;
+    margin-left: 339px;
     background-color: rgb(35, 42, 75);
     border: none;
     color: rgb(201, 201, 201);
+  
 }
 
 .remove:hover {
