@@ -3,7 +3,7 @@
   display: grid;
   grid-template-columns: 1fr 2.3fr;
   grid-template-rows: 120px 1fr;
-  min-height: 255vh;
+  min-height: 260vh;
   background-color: rgb(72, 80, 97);
 }
 
