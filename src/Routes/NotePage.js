@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { NavLink } from 'react-router-dom'
 import Moment from 'react-moment';
 import store from './store'
 import './Folder.css'
@@ -27,9 +26,9 @@ function NotePage(props) {
                 </li>
             </ul>
             
-            {note.content.split(/\n \r|\n/).map((para, i) =>
+            {note.content.split(/\n \r|\n/).map((p, i) =>
                 <p key={i} className="noteContent">
-                    {para}
+                    {p}
                 </p>
             )}
         </div>

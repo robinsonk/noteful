@@ -1,19 +1,22 @@
 import React, { Component } from 'react'
-import { Route } from 'react-router-dom'
 import Notes from './Components/Notes';
+import NoteContext from '../NoteContext'
 import Sidebar from './Components/Sidebar';
-import store from './store.js'
-import AddFolder from './AddFolder'
 
 export default class MainPage extends Component {
+    static contextType = NoteContext;
+
     render() {
+        const { notes } = this.context
         return (
             <div>
                 <nav>
                     <Sidebar/>
                 </nav>
                 <ul>
-                    <Notes/>
+                    <Notes
+                        notes={notes}
+                    />
                 </ul>
             </div>
         )

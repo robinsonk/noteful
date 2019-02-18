@@ -4,7 +4,6 @@ import './Sidebar.css'
 import store from '../store.js'
 
 function SidebarNotePage(props) {
-    console.log("sidebar REGULAR notes page is working")
     const folder = store.folders.find(f =>
         f.id === props.children 
     )

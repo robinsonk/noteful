@@ -24,7 +24,7 @@ nav {
     text-decoration: none;
 }
 
-.folderName:hover {
+.folderName:hover, .folder-icon:hover {
     color: rgb(255, 217, 0);
 }
 
