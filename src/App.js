@@ -88,7 +88,7 @@ class App extends Component {
             />
             <Route
               path="/notes/:noteId"
-              component={NotePage}
+              render={(props) => <NotePage {...props} notes={this.state.notes}/>}
             />
             <Route
               path="/folder/notes/:noteId"
