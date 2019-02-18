@@ -8,34 +8,29 @@ import { faPlusSquare } from '@fortawesome/free-solid-svg-icons'
 import './Notes.css'
 import NoteContext from '../../NoteContext';
 
-function deleteNote(props, callback, id) {
-    const noteId = this.props.id
-    fetch(`${config.API_ENDPOINT}/notes/${noteId}`, {
-        method: 'DELETE',  
-        headers: {
-            'content-type': 'NoteContext'
-        },
-    })
-        .then(response => {
-            if (!response.ok) {
-                return response.json().then(error => {
-                    throw error
-                })
-            }
-            return response.json()
-        })
-        .then(data => {
-            callback(noteId)
-        })
-        .catch(error => {
-            console.error(error)
-        })
-}
+
 
 export default function Notes(props) {
 
     function deleteNote(noteId) {
+        window.location.reload();
         console.log(`delete called for ${noteId}`)
+
+        fetch(`${config.API_ENDPOINT}/notes/${noteId}`, {
+            method: 'DELETE',  
+            headers: {
+                'content-type': 'NoteContext'
+        },
+    })
+        .then(response => {
+            if (!response.ok)
+                return response.json().then(error => Promise.reject(error))
+            return response.json()
+        })
+        .catch(error => {
+            console.error(error)
+        })
+       
     }
 
     return (
@@ -54,11 +49,8 @@ export default function Notes(props) {
                             Modified <Moment format="Do MMM YYYY">{note.modified}</Moment> <br /><br />
                             <button 
                                 className="remove"
-                                onClick={() => {
-                                    deleteNote(
-                                        noteId,
-                                        context.deleteNote,
-                                    )
+                                onClick={(event) => {
+                                    deleteNote(noteId)
                                 }}
                             >
                                 Remove
