@@ -4,7 +4,7 @@ import MainPage from './Routes/MainPage'
 import Folder from './Routes/Folder'
 import NoteContext from './NoteContext'
 import NotePage from './Routes/NotePage'
-import FolderNotePage from './Routes/Components/FolderNotePage'
+import FolderNotePage from './Routes/FolderNotePage'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faCheckDouble } from '@fortawesome/free-solid-svg-icons'
@@ -84,7 +84,7 @@ class App extends Component {
             />
             <Route
               path="/folders/:folderId"
-              component={Folder}
+              render={(props) => <Folder {...props} notes={this.state.notes}/>}
             />
             <Route
               path="/notes/:noteId"
@@ -92,7 +92,7 @@ class App extends Component {
             />
             <Route
               path="/folder/notes/:noteId"
-              component={FolderNotePage}
+              render={(props) => <FolderNotePage {...props} notes={this.state.notes}/>}
             />
             <Route
               exact path="/add-folder"

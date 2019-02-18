@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import Notes from './Components/Notes';
 import NoteContext from '../NoteContext'
 import Sidebar from './Components/Sidebar';
+import Folder from './Folder'
 
 export default class MainPage extends Component {
     static contextType = NoteContext;
