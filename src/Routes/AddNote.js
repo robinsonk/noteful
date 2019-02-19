@@ -3,7 +3,7 @@ import './AddFolder.css'
 import SidebarNewFolder from './Components/SidebarNewFolder'
 import config from '../config'
 import NoteContext from '../NoteContext';
-import Moment from 'moment'
+import { Redirect } from 'react-router-dom'
 
 class AddNote extends Component {
     constructor(props) {
@@ -16,6 +16,7 @@ class AddNote extends Component {
             content: '',
             folderIdNew: '',
             folderName: '',
+            redirect: false
         }
         this.handleSubmit = this.handleSubmit.bind(this);
     }
@@ -35,6 +36,7 @@ class AddNote extends Component {
 
     updateNoteFolder(folderName) {
         this.setState({folderName});
+        this.setRedirect();
     }
 
     updateNoteContent(content) {
@@ -42,10 +44,8 @@ class AddNote extends Component {
     }
 
     setFolder(event) {
-        const folderName = this.state.folderName;
-        const folderIdNew = this.state.folderIdNew;
         event.preventDefault();
-        {this.props.folders.map((folder, i) => {
+        {this.props.folders.map(folder => {
             if (folder.name === this.state.folderName) {
                 this.setState({folderIdNew: folder.id}, function() {
                     this.handleSubmit(event);
@@ -55,13 +55,24 @@ class AddNote extends Component {
         console.log(this.state.folderIdNew);  
     }
 
+    setRedirect = () => {
+        this.setState({
+            redirect: true
+        })
+    }
+
+    renderRedirect = () => {
+        if (this.state.redirect === true) {
+            return <Redirect exact to={`${config.API_ENDPOINT}/`} />
+        }
+    }
   
 
     handleSubmit(event) {
         const noteName  = this.state.noteName;
         const content = this.state.content;
-        const folderName = this.state.folderName;
         const folderIdNew = this.state.folderIdNew;
+
         const newNoteInfo = {
             'name': noteName,
             'id': noteName,
@@ -69,13 +80,6 @@ class AddNote extends Component {
             'content': content,
             folderId: folderIdNew
         }
-        console.log('Name: ', noteName);
-
-        console.log(`add folder called for ${noteName}`)
-
-        console.log(`folder id new is ${folderIdNew}`)
-
-        console.log(`folder name is ${folderName}`)
 
         fetch(`${config.API_ENDPOINT}/notes`, {
             method: 'POST',  
@@ -89,13 +93,13 @@ class AddNote extends Component {
                 return response.json().then(error => Promise.reject(error))
             return response.json()
         })
-        .then(folder => {
+        .then(() => {
             this.context.notes.push(newNoteInfo)
-            // this.props.history.push(folder)
         })
         .catch(error => {
             console.error(error)
-        })     
+        }) 
+        window.location.href = "/"; 
     }
 
 
@@ -105,7 +109,7 @@ class AddNote extends Component {
                 <nav>
                     <SidebarNewFolder />
                 </nav>
-                <h2>Create new note</h2>
+                <h2>Create a new note</h2>
                 <form>
                     <label htmlFor="note-name">Note name: <br /></label>
                         <input type="text" name="note-name" onChange={(event) => this.updateNoteName(event.target.value)}/>
@@ -116,7 +120,7 @@ class AddNote extends Component {
                     <label htmlFor="select">Select a folder: <br /></label>
                         <select name="select" onChange={(event) => this.updateNoteFolder(event.target.value)}>
                             {this.props.folders.map((folder, i) => 
-                                <option value={folder.name} >{folder.name}</option>
+                                <option key={folder.id} value={folder.name} >{folder.name}</option>
                             )}
                         </select>
                     <br /><br />

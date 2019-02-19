@@ -56,7 +56,8 @@ class AddFolder extends Component {
         })
         .catch(error => {
             console.error(error)
-        })       
+        })  
+        window.location.href = "/";      
     }
 
   
