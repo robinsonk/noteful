@@ -1,9 +1,10 @@
-import React, { Component } from 'react'
+import React from 'react'
 import config from '../config'
 import { NavLink } from 'react-router-dom'
 import NoteContext from '../NoteContext';
 import Moment from 'react-moment';
 import SidebarFolderNotePage from './Components/SidebarFolderNotePage'
+import PropTypes from 'prop-types'
 
 function FolderNotePage(props) {
 
@@ -34,13 +35,15 @@ function FolderNotePage(props) {
                 {(context) => (
                     props.notes.map(note => {
                         const noteId = note.id
+                        const folderId = note.folderId
                         if (note.id === props.match.params.noteId)
                         return ( 
-                            <div> 
+                            <div key={note.id}> 
                                 <nav>
-                                    <SidebarFolderNotePage>
-                                        {note.folderId}
-                                    </SidebarFolderNotePage>
+                                    <SidebarFolderNotePage
+                                        id={folderId}
+                                        folders={props.folders}
+                                    />
                                 </nav>
                                 <ul>
                                     <li key={note.id}>
@@ -66,6 +69,7 @@ function FolderNotePage(props) {
                                 )}
                             </div> 
                         )
+                        return '';
                     })
                 )}
             </NoteContext.Consumer>
@@ -73,4 +77,7 @@ function FolderNotePage(props) {
     );
 }
 
+FolderNotePage.propTypes = {
+    notes: PropTypes.array.isRequired
+}
 export default FolderNotePage;

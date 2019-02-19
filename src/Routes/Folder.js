@@ -1,7 +1,6 @@
-import React, { Component } from 'react'
+import React from 'react'
 import Moment from 'react-moment';
 import { NavLink } from 'react-router-dom'
-import store from './store'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faPlusSquare } from '@fortawesome/free-solid-svg-icons'
@@ -9,6 +8,7 @@ import './Folder.css'
 import Sidebar from './Components/Sidebar'
 import config from '../config'
 import NoteContext from '../NoteContext';
+import PropTypes from 'prop-types'
 
 function Folder(props) {
 
@@ -33,24 +33,26 @@ function Folder(props) {
        
     }
 
-    console.log(props.match);
     const note = props.notes.filter(n =>
         n.folderId === props.match.params.folderId    
     )
+
     return (
         <div>
             <nav>
-                <Sidebar />
+                <Sidebar 
+                    folders={props.folders}
+                />
             </nav>
             <NoteContext.Consumer>
                 {(context) => (
-                    <ul>
+                    <ul className="notes-section">
                         {note.map(note => {
                         const  noteId  = note.id
                         return (
                             <li key={note.id}>
                                 <NavLink exact to={`/folder/notes/${note.id}`}>
-                                    <h3>{note.name}</h3> <br />
+                                    <h3 className="noteName">{note.name}</h3> <br />
                                 </NavLink>
                                 Modified <Moment format="Do MMM YYYY">{note.modified}</Moment> <br /><br />
                                 <button 
@@ -64,14 +66,19 @@ function Folder(props) {
                             </li>
                         )
                             })}
-                            <NavLink exact to={"/add-folder"}>
-                                <FontAwesomeIcon icon="plus-square" className="folder-icon"/>
+                            <NavLink exact to={"/add-note"}>
+                                <FontAwesomeIcon icon="plus-square" className="new-icon"/>
                             </NavLink>
                     </ul>
                 )}
             </NoteContext.Consumer>
         </div>
     );
+}
+
+Folder.propTypes = {
+    notes: PropTypes.array.isRequired,
+    folders: PropTypes.array.isRequired
 }
 
 library.add(faPlusSquare)

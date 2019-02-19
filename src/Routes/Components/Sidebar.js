@@ -1,16 +1,18 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { NavLink } from 'react-router-dom'
+import NoteContext from '../../NoteContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faFolderPlus } from '@fortawesome/free-solid-svg-icons'
 import './Sidebar.css'
-import store from '../store.js'
+import PropTypes from 'prop-types'
 
-class Sidebar extends Component {
-    render() {
+function Sidebar(props) {
         return (
+            <NoteContext.Consumer>
+            {(context) => (
             <div>
-                {store.folders.map(folder =>
+                {props.folders.map(folder =>
                     <NavLink exact to={`/folders/${folder.id}`}
                         className="folderName"
                         activeClassName="folderName-active"
@@ -23,9 +25,13 @@ class Sidebar extends Component {
                         <FontAwesomeIcon icon="folder-plus" className="folder-icon"/>
                     </NavLink>
             </div>
+             )}
+             </NoteContext.Consumer>
         );
-    }
 }
-  
+
+Sidebar.propTypes = {
+    folders: PropTypes.array.isRequired
+}  
 library.add(faFolderPlus)
 export default Sidebar;

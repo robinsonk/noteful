@@ -1,11 +1,11 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { NavLink } from 'react-router-dom'
 import './Sidebar.css'
-import store from '../store.js'
+import PropTypes from 'prop-types'
 
 function SidebarNotePage(props) {
-    const folder = store.folders.find(f =>
-        f.id === props.children 
+    const folder = props.folders.find(f =>
+        f.id === props.id 
     )
     return (
         <div>
@@ -21,5 +21,9 @@ function SidebarNotePage(props) {
             </div>
     );
 }
-  
+
+SidebarNotePage.propTypes = {
+    id: PropTypes.string.isRequired,
+    folders: PropTypes.array.isRequired
+}
 export default SidebarNotePage;

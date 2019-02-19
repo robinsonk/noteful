@@ -5,7 +5,7 @@ const NoteContext = React.createContext({
     folders: [],
     deleteNote: () => {},
     addNote: () => {},
-    addFolder: () => {},
+    addNewFolder: () => {},
 })
 
 export default NoteContext

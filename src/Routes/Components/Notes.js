@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { Link, NavLink } from 'react-router-dom'
 import Moment from 'react-moment';
 import config from '../../config'
@@ -7,6 +7,7 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { faPlusSquare } from '@fortawesome/free-solid-svg-icons'
 import './Notes.css'
 import NoteContext from '../../NoteContext';
+import PropTypes from 'prop-types'
 
 
 
@@ -58,13 +59,17 @@ export default function Notes(props) {
                         </li>
                     )
                     })}
-                    <NavLink exact to={"/add-folder"}>
-                        <FontAwesomeIcon icon="plus-square" className="folder-icon"/>
+                    <NavLink exact to={"/add-note"}>
+                        <FontAwesomeIcon icon="plus-square" className="new-icon"/>
                     </NavLink>
                 </ul>
             )}
         </NoteContext.Consumer>
     );
+}
+
+Notes.propTypes = {
+    notes: PropTypes.array.isRequired
 }
   
 library.add(faPlusSquare)

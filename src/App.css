@@ -1,9 +1,9 @@
 
 .App {
   display: grid;
-  grid-template-columns: 1fr 2.3fr;
-  grid-template-rows: 120px 1fr;
-  min-height: 260vh;
+  grid-template-columns: 1fr 15fr;
+  grid-column-gap: auto;
+  height: 100%;
   background-color: rgb(72, 80, 97);
 }
 
@@ -15,8 +15,8 @@ h1 {
   padding-bottom: 30px;
   color: rgb(201, 201, 201);
   background-color: rgb(30, 40, 59);
-  margin-left: 550px;
-  padding-left: 35px;
+  margin-left: 190px;
+  padding-left: 40px;
   position: fixed;
 }
 

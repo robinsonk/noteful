@@ -1,10 +1,12 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { NavLink } from 'react-router-dom'
 import config from '../config'
 import NoteContext from '../NoteContext';
 import Moment from 'react-moment';
 import './Folder.css'
+import './NotesPage.css'
 import SidebarNotePage from './Components/SidebarNotePage'
+import PropTypes from 'prop-types'
 
 function NotePage(props) {
 
@@ -15,7 +17,7 @@ function NotePage(props) {
         fetch(`${config.API_ENDPOINT}/notes/${noteId}`, {
             method: 'DELETE',  
             headers: {
-                'content-type': 'NoteContext'
+                'content-type': 'application/json'
         },
     })
         .then(response => {
@@ -38,11 +40,12 @@ function NotePage(props) {
                         const noteId = note.id
                         if (note.id === props.match.params.noteId)
                         return ( 
-                            <div>
+                            <div key={note.id}>
                                 <nav>
-                                    <SidebarNotePage>
-                                        {note.folderId}
-                                    </SidebarNotePage>
+                                    <SidebarNotePage
+                                        id={note.folderId}
+                                        folders={props.folders}
+                                    />
                                 </nav>
                                 <ul>
                                     <li key={note.id}>
@@ -68,6 +71,7 @@ function NotePage(props) {
                                 )}
                             </div>
                               )
+                              return '';
                             })
                         )}
                     </NoteContext.Consumer>
@@ -75,4 +79,7 @@ function NotePage(props) {
     );
 }
 
+NotePage.propTypes = {
+    notes: PropTypes.array.isRequired
+}
 export default NotePage;

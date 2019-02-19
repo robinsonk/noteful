@@ -9,8 +9,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faCheckDouble } from '@fortawesome/free-solid-svg-icons'
 import AddFolder from './Routes/AddFolder'
+import AddNote from './Routes/AddNote'
 import './App.css';
 import config from './config'
+import ErrorBoundary from './errorBoundary'
 
 class App extends Component {
   state = {
@@ -28,7 +30,6 @@ class App extends Component {
   }
 
   componentDidMount() {
-    console.log(config.API_ENDPOINT)
     Promise.all([
       fetch(`${config.API_ENDPOINT}/folders`),
       fetch(`${config.API_ENDPOINT}/notes`)
@@ -62,7 +63,7 @@ class App extends Component {
       notes: this.state.notes,
       addNote: this.addNote,
       deleteNote: this.deleteNote,
-      addFolder: this.addFolder,
+      addFolder: this.addNewFolder,
     }
 
     return (
@@ -78,26 +79,32 @@ class App extends Component {
             </h1>
           </header>
           <main role="main">
-            <Route
-              exact path="/"
-              component={MainPage}
-            />
-            <Route
-              path="/folders/:folderId"
-              render={(props) => <Folder {...props} notes={this.state.notes}/>}
-            />
-            <Route
-              path="/notes/:noteId"
-              render={(props) => <NotePage {...props} notes={this.state.notes}/>}
-            />
-            <Route
-              path="/folder/notes/:noteId"
-              render={(props) => <FolderNotePage {...props} notes={this.state.notes}/>}
-            />
-            <Route
-              exact path="/add-folder"
-              component={AddFolder}
-            />
+            <ErrorBoundary>
+              <Route
+                exact path="/"
+                component={MainPage}
+              />
+              <Route
+                path="/folders/:folderId"
+                render={(props) => <Folder {...props} notes={this.state.notes} folders={this.state.folders}/>}
+              />
+              <Route
+                path="/notes/:noteId"
+                render={(props) => <NotePage {...props} notes={this.state.notes} folders={this.state.folders}/>}
+              />
+              <Route
+                path="/folder/notes/:noteId"
+                render={(props) => <FolderNotePage {...props} notes={this.state.notes} folders={this.state.folders}/>}
+              />
+              <Route
+                exact path="/add-folder"
+                render={(props) => <AddFolder {...props} addNewFolder={this.state.addNewfolder} folders={this.state.folders}/>}
+              />
+              <Route
+                exact path="/add-note"
+                render={(props) => <AddNote {...props} addNote={this.state.addNote} folders={this.state.folders} notes={this.state.notes}/>}
+              />
+            </ErrorBoundary>
           </main>
         </div>
       </NoteContext.Provider>
