@@ -14,6 +14,8 @@ class AddNote extends Component {
             noteId: '',
             modified: '',
             content: '',
+            folderIdNew: '',
+            folderName: '',
         }
         this.handleSubmit = this.handleSubmit.bind(this);
     }
@@ -31,27 +33,49 @@ class AddNote extends Component {
         this.setState({noteName});
     }
 
-    // updateNoteDate(modified) {
-    //     this.setState({modified});
-    // }
+    updateNoteFolder(folderName) {
+        this.setState({folderName});
+    }
 
     updateNoteContent(content) {
         this.setState({content});
     }
 
-    handleSubmit(event) {
+    setFolder(event) {
+        const folderName = this.state.folderName;
+        const folderIdNew = this.state.folderIdNew;
         event.preventDefault();
+        {this.props.folders.map((folder, i) => {
+            if (folder.name === this.state.folderName) {
+                this.setState({folderIdNew: folder.id}, function() {
+                    this.handleSubmit(event);
+                })
+            }
+        })}
+        console.log(this.state.folderIdNew);  
+    }
+
+  
+
+    handleSubmit(event) {
         const noteName  = this.state.noteName;
-        const content = this.state.content
+        const content = this.state.content;
+        const folderName = this.state.folderName;
+        const folderIdNew = this.state.folderIdNew;
         const newNoteInfo = {
             'name': noteName,
             'id': noteName,
             'date': new Date(),
-            'content': content
+            'content': content,
+            folderId: folderIdNew
         }
         console.log('Name: ', noteName);
 
         console.log(`add folder called for ${noteName}`)
+
+        console.log(`folder id new is ${folderIdNew}`)
+
+        console.log(`folder name is ${folderName}`)
 
         fetch(`${config.API_ENDPOINT}/notes`, {
             method: 'POST',  
@@ -66,12 +90,12 @@ class AddNote extends Component {
             return response.json()
         })
         .then(folder => {
-            this.context.folders.push(newNoteInfo)
+            this.context.notes.push(newNoteInfo)
             // this.props.history.push(folder)
         })
         .catch(error => {
             console.error(error)
-        })       
+        })     
     }
 
 
@@ -84,19 +108,19 @@ class AddNote extends Component {
                 <h2>Create new note</h2>
                 <form>
                     <label htmlFor="note-name">Note name: <br /></label>
-                        <input type="text" name="note-name" />
+                        <input type="text" name="note-name" onChange={(event) => this.updateNoteName(event.target.value)}/>
                         <br /><br />
-                        <label htmlFor="content">Content: <br /></label>
-                        <input type="text" name="content" />
+                    <label htmlFor="content">Content: <br /></label>
+                        <input type="text" name="content" onChange={(event) => this.updateNoteContent(event.target.value)}/>
                         <br /><br />
-                        <label htmlFor="select">Select a folder: <br /></label>
-                        <select name="select">
-                        {this.props.folders.map((folder, i) => 
-                            <option value="folder a">{folder.name}</option>
-                        )}
+                    <label htmlFor="select">Select a folder: <br /></label>
+                        <select name="select" onChange={(event) => this.updateNoteFolder(event.target.value)}>
+                            {this.props.folders.map((folder, i) => 
+                                <option value={folder.name} >{folder.name}</option>
+                            )}
                         </select>
                     <br /><br />
-                    <input type="submit" value="Submit" />
+                    <input type="submit" value="Submit" onClick={(event) => this.setFolder(event)}/>
                 </form>
             </div>
         );
