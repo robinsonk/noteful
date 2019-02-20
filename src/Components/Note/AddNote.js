@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import '../Folder/AddFolder.css'
-import SidebarNewFolder from '../Components/SidebarNewFolder'
-import config from '../config'
-import NoteContext from '../NoteContext';
+import SidebarNewFolder from '../Sidebars/SidebarNewFolder'
+import config from '../../config'
+import NoteContext from '../../NoteContext';
 import { Redirect } from 'react-router-dom'
 
 class AddNote extends Component {

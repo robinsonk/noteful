@@ -1,18 +1,18 @@
 import React, { Component } from 'react';
 import { Route, Link } from 'react-router-dom'
-import MainPage from './MainPage/MainPage'
-import Folder from './Folder/Folder'
-import NoteContext from './NoteContext'
-import NotePage from './Note/NotePage'
-import FolderNotePage from './Note/FolderNotePage'
+import MainPage from '../MainPage/MainPage'
+import Folder from '../Folder/Folder'
+import NoteContext from '../../NoteContext'
+import NotePage from '../Note/NotePage'
+import FolderNotePage from '../Note/FolderNotePage'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faCheckDouble } from '@fortawesome/free-solid-svg-icons'
-import AddFolder from './Folder/AddFolder'
-import AddNote from './Note/AddNote'
+import AddFolder from '../Folder/AddFolder'
+import AddNote from '../Note/AddNote'
 import './App.css';
-import config from './config'
-import ErrorBoundary from './errorBoundary'
+import config from '../../config'
+import ErrorBoundary from './ErrorBoundary'
 
 class App extends Component {
   state = {

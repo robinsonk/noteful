@@ -1,9 +1,9 @@
 import React from 'react'
-import config from '../config'
+import config from '../../config'
 import { NavLink } from 'react-router-dom'
-import NoteContext from '../NoteContext';
+import NoteContext from '../../NoteContext';
 import Moment from 'react-moment';
-import SidebarFolderNotePage from '../Components/SidebarFolderNotePage'
+import SidebarFolderNotePage from '../Sidebars/SidebarFolderNotePage'
 import PropTypes from 'prop-types'
 
 function FolderNotePage(props) {

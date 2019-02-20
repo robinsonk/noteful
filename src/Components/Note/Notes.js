@@ -1,12 +1,12 @@
 import React from 'react'
 import { Link, NavLink } from 'react-router-dom'
 import Moment from 'react-moment';
-import config from '../config'
+import config from '../../config'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faPlusSquare } from '@fortawesome/free-solid-svg-icons'
 import './Notes.css'
-import NoteContext from '../NoteContext';
+import NoteContext from '../../NoteContext';
 import PropTypes from 'prop-types'
 
 

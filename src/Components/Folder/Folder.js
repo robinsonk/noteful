@@ -5,9 +5,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faPlusSquare } from '@fortawesome/free-solid-svg-icons'
 import './Folder.css'
-import Sidebar from '../Components/Sidebar'
-import config from '../config'
-import NoteContext from '../NoteContext';
+import Sidebar from '../Sidebars/Sidebar'
+import config from '../../config'
+import NoteContext from '../../NoteContext';
 import PropTypes from 'prop-types'
 
 function Folder(props) {
