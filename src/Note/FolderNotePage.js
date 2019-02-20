@@ -3,13 +3,11 @@ import config from '../config'
 import { NavLink } from 'react-router-dom'
 import NoteContext from '../NoteContext';
 import Moment from 'react-moment';
-import SidebarFolderNotePage from './Components/SidebarFolderNotePage'
+import SidebarFolderNotePage from '../Components/SidebarFolderNotePage'
 import PropTypes from 'prop-types'
 
 function FolderNotePage(props) {
-
-    function deleteNote(noteId) {
-        window.location.reload();
+    function deleteNote(noteId, folderId) {
         console.log(`delete called for ${noteId}`)
 
         fetch(`${config.API_ENDPOINT}/notes/${noteId}`, {
@@ -26,6 +24,8 @@ function FolderNotePage(props) {
         .catch(error => {
             console.error(error)
         })
+
+        window.location.href = `/folders/${folderId}`;
        
     }
 
@@ -52,7 +52,7 @@ function FolderNotePage(props) {
                                         <button
                                             className="remove"
                                             onClick={(event) => {
-                                                deleteNote(noteId)
+                                                deleteNote(noteId, folderId)
                                             }}
                                         >
                                             <NavLink exact to={`/folders/${note.folderId}`}>

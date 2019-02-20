@@ -1,6 +1,6 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
-import NoteContext from '../../NoteContext';
+import NoteContext from '../NoteContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faFolderPlus } from '@fortawesome/free-solid-svg-icons'

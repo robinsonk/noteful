@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import Notes from './Components/Notes';
+import Notes from '../Components/Notes';
 import NoteContext from '../NoteContext'
-import Sidebar from './Components/Sidebar';
+import Sidebar from '../Components/Sidebar';
 import './MainPage.css'
 
 

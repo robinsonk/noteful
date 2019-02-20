@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import './AddFolder.css'
-import SidebarNewFolder from './Components/SidebarNewFolder'
+import '../Folder/AddFolder.css'
+import SidebarNewFolder from '../Components/SidebarNewFolder'
 import config from '../config'
 import NoteContext from '../NoteContext';
 import { Redirect } from 'react-router-dom'

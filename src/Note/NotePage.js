@@ -3,9 +3,9 @@ import { NavLink } from 'react-router-dom'
 import config from '../config'
 import NoteContext from '../NoteContext';
 import Moment from 'react-moment';
-import './Folder.css'
+import '../Folder/Folder.css'
 import './NotesPage.css'
-import SidebarNotePage from './Components/SidebarNotePage'
+import SidebarNotePage from '../Components/SidebarNotePage'
 import PropTypes from 'prop-types'
 
 function NotePage(props) {
