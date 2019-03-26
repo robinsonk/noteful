@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, Link } from 'react-router-dom'
+import { Link, Route } from 'react-router-dom'
 import MainPage from '../MainPage/MainPage'
 import Folder from '../Folder/Folder'
 import NoteContext from '../../NoteContext'
