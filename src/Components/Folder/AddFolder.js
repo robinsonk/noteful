@@ -31,14 +31,13 @@ class AddFolder extends Component {
         event.preventDefault();
         const folder  = this.state.folderName;
         const newInfo = {
-            'name': folder,
-            'id': folder
+            'title': folder,
         }
         console.log('Name: ', folder);
 
         console.log(`add folder called for ${folder}`)
 
-        fetch(`${config.API_ENDPOINT}/folders`, {
+        fetch(`${config.API_ENDPOINT}/api/folders`, {
             method: 'POST',  
             headers: {
                 'content-type': 'application/json'

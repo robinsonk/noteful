@@ -16,7 +16,7 @@ function SidebarNotePage(props) {
                 BACK
             </NavLink>
             <span className="folderNameStatic">
-                {folder.name}
+                {folder.title}
             </span>  
             </div>
     );

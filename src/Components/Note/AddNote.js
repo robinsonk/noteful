@@ -12,10 +12,10 @@ class AddNote extends Component {
         this.state = {
             noteName: '',
             noteId: '',
-            modified: '',
+            modified: new Date(),
             content: '',
             folderIdNew: '',
-            folderName: '',
+            folderTitle: '',
             redirect: false
         }
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -34,8 +34,8 @@ class AddNote extends Component {
         this.setState({noteName});
     }
 
-    updateNoteFolder(folderName) {
-        this.setState({folderName});
+    updateNoteFolder(folderTitle) {
+        this.setState({folderTitle});
         this.setRedirect();
     }
 
@@ -46,7 +46,7 @@ class AddNote extends Component {
     setFolder(event) {
         event.preventDefault();
         {this.props.folders.map(folder => {
-            if (folder.name === this.state.folderName) {
+            if (folder.title === this.state.folderTitle) {
                 this.setState({folderIdNew: folder.id}, function() {
                     this.handleSubmit(event);
                 })
@@ -72,16 +72,16 @@ class AddNote extends Component {
         const noteName  = this.state.noteName;
         const content = this.state.content;
         const folderIdNew = this.state.folderIdNew;
+        const modified = this.state.modified;
 
         const newNoteInfo = {
-            'name': noteName,
-            'id': noteName,
-            'date': new Date(),
-            'content': content,
-            folderId: folderIdNew
+            'title': noteName,
+            'date_modified': modified,
+            'folder': folderIdNew,
+            'content': content
         }
 
-        fetch(`${config.API_ENDPOINT}/notes`, {
+        fetch(`${config.API_ENDPOINT}/api/notes/`, {
             method: 'POST',  
             headers: {
                 'content-type': 'application/json'
@@ -118,9 +118,10 @@ class AddNote extends Component {
                         <input type="text" name="content" onChange={(event) => this.updateNoteContent(event.target.value)}/>
                         <br /><br />
                     <label htmlFor="select">Select a folder: <br /></label>
-                        <select name="select" onChange={(event) => this.updateNoteFolder(event.target.value)}>
+                        <select name="select" value="select one" onChange={(event) => this.updateNoteFolder(event.target.value)}>
+                        <option key={1} value="select one" >Select one</option>
                             {this.props.folders.map((folder, i) => 
-                                <option key={folder.id} value={folder.name} >{folder.name}</option>
+                                <option key={folder.id} value={folder.title} >{folder.title}</option>
                             )}
                         </select>
                     <br /><br />

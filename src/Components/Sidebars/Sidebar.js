@@ -13,12 +13,12 @@ function Sidebar(props) {
             {(context) => (
             <div>
                 {props.folders.map(folder =>
-                    <NavLink exact to={`/folders/${folder.id}`}
+                    <NavLink exact to={`/api/folders/${folder.id}`}
                         className="folderName"
                         activeClassName="folderName-active"
                         key={folder.id}
                     >
-                            {folder.name}
+                            {folder.title}
                     </NavLink>  
                 )}
                     <NavLink exact to={"/add-folder"}>

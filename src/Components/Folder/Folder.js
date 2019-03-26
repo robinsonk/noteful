@@ -16,7 +16,7 @@ function Folder(props) {
         window.location.reload();
         console.log(`delete called for ${noteId}`)
 
-        fetch(`${config.API_ENDPOINT}/notes/${noteId}`, {
+        fetch(`${config.API_ENDPOINT}/api/notes/${noteId}`, {
             method: 'DELETE',  
             headers: {
                 'content-type': 'NoteContext'
@@ -34,7 +34,7 @@ function Folder(props) {
     }
 
     const note = props.notes.filter(n =>
-        n.folderId === props.match.params.folderId    
+        n.folder === props.match.params.folder
     )
 
     return (
@@ -51,10 +51,10 @@ function Folder(props) {
                         const  noteId  = note.id
                         return (
                             <li key={note.id}>
-                                <NavLink exact to={`/folder/notes/${note.id}`}>
-                                    <h3 className="noteName">{note.name}</h3> <br />
+                                <NavLink exact to={`/api/folder/notes/${note.id}`}>
+                                    <h3 className="noteName">{note.title}</h3> <br />
                                 </NavLink>
-                                Modified <Moment format="Do MMM YYYY">{note.modified}</Moment> <br /><br />
+                                Modified <Moment format="Do MMM YYYY">{note.modified_date}</Moment> <br /><br />
                                 <button 
                                     className="remove"
                                     onClick={(event) => {

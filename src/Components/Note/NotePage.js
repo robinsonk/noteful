@@ -14,7 +14,7 @@ function NotePage(props) {
         window.location.reload();
         console.log(`delete called for ${noteId}`)
 
-        fetch(`${config.API_ENDPOINT}/notes/${noteId}`, {
+        fetch(`${config.API_ENDPOINT}/api/notes/${noteId}`, {
             method: 'DELETE',  
             headers: {
                 'content-type': 'application/json'
@@ -43,14 +43,14 @@ function NotePage(props) {
                             <div key={note.id}>
                                 <nav>
                                     <SidebarNotePage
-                                        id={note.folderId}
+                                        id={note.folder}
                                         folders={props.folders}
                                     />
                                 </nav>
                                 <ul>
                                     <li key={note.id}>
-                                        <h3>{note.name}</h3> <br />
-                                        Modified <Moment format="Do MMM YYYY">{note.modified}</Moment> <br /><br />
+                                        <h3>{note.title}</h3> <br />
+                                        Modified <Moment format="Do MMM YYYY">{note.modified_date}</Moment> <br /><br />
                                         <button 
                                             className="remove"
                                             onClick={(event) => {

@@ -31,8 +31,8 @@ class App extends Component {
 
   componentDidMount() {
     Promise.all([
-      fetch(`${config.API_ENDPOINT}/folders`),
-      fetch(`${config.API_ENDPOINT}/notes`)
+      fetch(`${config.API_ENDPOINT}/api/folders`),
+      fetch(`${config.API_ENDPOINT}/api/notes`)
     ])
       .then(([foldersResponse, notesResponse]) => {
         if (!foldersResponse.ok)
@@ -85,15 +85,15 @@ class App extends Component {
                 component={MainPage}
               />
               <Route
-                path="/folders/:folderId"
+                path="/api/folders/:folderId"
                 render={(props) => <Folder {...props} notes={this.state.notes} folders={this.state.folders}/>}
               />
               <Route
-                path="/notes/:noteId"
+                path="/api/notes/:noteId"
                 render={(props) => <NotePage {...props} notes={this.state.notes} folders={this.state.folders}/>}
               />
               <Route
-                path="/folder/notes/:noteId"
+                path="/api/folder/notes/:noteId"
                 render={(props) => <FolderNotePage {...props} notes={this.state.notes} folders={this.state.folders}/>}
               />
               <Route

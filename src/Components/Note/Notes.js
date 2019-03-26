@@ -12,17 +12,17 @@ import PropTypes from 'prop-types'
 
 
 export default function Notes(props) {
-
+    
     function deleteNote(noteId) {
         window.location.reload();
         console.log(`delete called for ${noteId}`)
 
-        fetch(`${config.API_ENDPOINT}/notes/${noteId}`, {
+        fetch(`${config.API_ENDPOINT}/api/notes/${noteId}`, {
             method: 'DELETE',  
             headers: {
                 'content-type': 'NoteContext'
-        },
-    })
+            },
+        })
         .then(response => {
             if (!response.ok)
                 return response.json().then(error => Promise.reject(error))
@@ -42,10 +42,10 @@ export default function Notes(props) {
                     const  noteId  = note.id
                     return (
                         <li key={note.id}>
-                            <Link to={`notes/${note.id}`}
+                            <Link to={`/api/notes/${note.id}`}
                                 className="noteName"
                             >
-                                <h3>{note.name}</h3> <br />
+                                <h3>{note.title}</h3> <br />
                             </Link>
                             Modified <Moment format="Do MMM YYYY">{note.modified}</Moment> <br /><br />
                             <button 
