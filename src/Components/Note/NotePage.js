@@ -38,7 +38,7 @@ function NotePage(props) {
                 {(context) => (
                     props.notes.map(note => {
                         const noteId = note.id
-                        if (note.id === props.match.params.noteId)
+                        if (note.id == props.match.params.noteId)
                         return ( 
                             <div key={note.id}>
                                 <nav>

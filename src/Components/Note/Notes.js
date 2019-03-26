@@ -45,7 +45,7 @@ export default function Notes(props) {
                             <Link to={`/api/notes/${note.id}`}
                                 className="noteName"
                             >
-                                <h3>{note.title}</h3> <br />
+                                <h3>{note.title} | Folder: {note.folder}</h3> <br />
                             </Link>
                             Modified <Moment format="Do MMM YYYY">{note.modified}</Moment> <br /><br />
                             <button 

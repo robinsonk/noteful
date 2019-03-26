@@ -33,9 +33,7 @@ function Folder(props) {
        
     }
 
-    const note = props.notes.filter(n =>
-        n.folder === props.match.params.folder
-    )
+    const note = props.notes.filter(note => note.folder == props.match.params.folderId)
 
     return (
         <div>
@@ -74,6 +72,7 @@ function Folder(props) {
             </NoteContext.Consumer>
         </div>
     );
+    
 }
 
 Folder.propTypes = {

@@ -86,7 +86,7 @@ class App extends Component {
               />
               <Route
                 path="/api/folders/:folderId"
-                render={(props) => <Folder {...props} notes={this.state.notes} folders={this.state.folders}/>}
+                render={(props) => <Folder {...props} notes={this.state.notes} folders={this.state.folders} folderId={this.state.folders.map(f => f.id)} noteFolderId={this.state.folders.map(n => n.folder)}/>}
               />
               <Route
                 path="/api/notes/:noteId"

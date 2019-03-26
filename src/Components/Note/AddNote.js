@@ -118,7 +118,7 @@ class AddNote extends Component {
                         <input type="text" name="content" onChange={(event) => this.updateNoteContent(event.target.value)}/>
                         <br /><br />
                     <label htmlFor="select">Select a folder: <br /></label>
-                        <select name="select" value="select one" onChange={(event) => this.updateNoteFolder(event.target.value)}>
+                        <select name="select" value={this.state.folderTitle} onChange={(event) => this.updateNoteFolder(event.target.value)}>
                         <option key={1} value="select one" >Select one</option>
                             {this.props.folders.map((folder, i) => 
                                 <option key={folder.id} value={folder.title} >{folder.title}</option>
