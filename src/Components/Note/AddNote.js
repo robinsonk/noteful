@@ -14,8 +14,7 @@ class AddNote extends Component {
             noteId: '',
             modified: new Date(),
             content: '',
-            folderIdNew: '',
-            folderTitle: '',
+            folderId: '',
             redirect: false
         }
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -30,35 +29,43 @@ class AddNote extends Component {
 
     static contextType = NoteContext;
 
-    updateNoteName(noteName) {
-        this.setState({noteName});
+    updateNote(noteName) {
+        this.setState({noteName}, () => {
+            console.log(this.state.noteName, this.state.folderId, this.state.content)
+        });
     }
 
-    updateNoteFolder(folderTitle) {
-        this.setState({folderTitle});
-        this.setRedirect();
+    updateNoteFolder(folderId) {
+        this.setState({folderId}, () => {
+            console.log(this.state.noteName, this.state.folderId, this.state.content)
+        });
     }
 
     updateNoteContent(content) {
-        this.setState({content});
+        this.setState({content}, () => {
+            console.log(this.state.noteName, this.state.folderId, this.state.content)
+        });
     }
 
     setFolder(event) {
-        event.preventDefault();
-        {this.props.folders.map(folder => {
-            if (folder.title === this.state.folderTitle) {
-                this.setState({folderIdNew: folder.id}, function() {
-                    this.handleSubmit(event);
-                })
-            }
-        })}
-        console.log(this.state.folderIdNew);  
+        // event.preventDefault();
+        // {this.props.folders.map(folder => {
+        //     if (folder.title === this.state.folderTitle) {
+        //         this.setState({folderId: folder.id}, function() {
+        //             this.handleSubmit(event);
+        //         })
+        //     }
+        // })}
+        console.log(this.state.folderId);  
     }
 
     setRedirect = () => {
         this.setState({
             redirect: true
+        }, () => {
+            this.renderRedirect();
         })
+        
     }
 
     renderRedirect = () => {
@@ -69,19 +76,21 @@ class AddNote extends Component {
   
 
     handleSubmit(event) {
+        event.preventDefault();
         const noteName  = this.state.noteName;
         const content = this.state.content;
-        const folderIdNew = this.state.folderIdNew;
+        const folderId = this.state.folderId;
         const modified = this.state.modified;
 
         const newNoteInfo = {
             'title': noteName,
             'date_modified': modified,
-            'folder': folderIdNew,
-            'content': content
+            'folder': this.state.folderId,
+            'content': this.state.content, 
         }
+        console.log(newNoteInfo);
 
-        fetch(`${config.API_ENDPOINT}/api/notes/`, {
+        fetch(`${config.API_ENDPOINT}/api/notes`, {
             method: 'POST',  
             headers: {
                 'content-type': 'application/json'
@@ -93,12 +102,14 @@ class AddNote extends Component {
                 return response.json().then(error => Promise.reject(error))
             return response.json()
         })
-        .then(() => {
+        .then(note => {
             this.context.notes.push(newNoteInfo)
+            console.log(newNoteInfo)
         })
         .catch(error => {
             console.error(error)
         }) 
+        this.setRedirect();
         window.location.href = "/"; 
     }
 
@@ -112,20 +123,20 @@ class AddNote extends Component {
                 <h2>Create a new note</h2>
                 <form>
                     <label htmlFor="note-name">Note name: <br /></label>
-                        <input type="text" name="note-name" onChange={(event) => this.updateNoteName(event.target.value)}/>
+                        <input type="text" name="note-name" ref={this.nameInput} onChange={(event) => this.updateNote(event.target.value)}/>
                         <br /><br />
                     <label htmlFor="content">Content: <br /></label>
-                        <input type="text" name="content" onChange={(event) => this.updateNoteContent(event.target.value)}/>
+                        <input type="text" name="content" ref={this.nameInput} onChange={(event) => this.updateNoteContent(event.target.value)}/>
                         <br /><br />
                     <label htmlFor="select">Select a folder: <br /></label>
-                        <select name="select" value={this.state.folderTitle} onChange={(event) => this.updateNoteFolder(event.target.value)}>
-                        <option key={1} value="select one" >Select one</option>
+                        <select name="select" value={this.state.folderTitle} ref={this.nameInput} onChange={(event) => this.updateNoteFolder(event.target.value)}>
+                        <option key={1} value="select one">Select one</option>
                             {this.props.folders.map((folder, i) => 
-                                <option key={folder.id} value={folder.title} >{folder.title}</option>
+                                <option key={folder.id} value={folder.id}>{folder.title}</option>
                             )}
                         </select>
                     <br /><br />
-                    <input type="submit" value="Submit" onClick={(event) => this.setFolder(event)}/>
+                    <input type="submit" value="Submit" onClick={(event) => this.handleSubmit(event)}/>
                 </form>
             </div>
         );

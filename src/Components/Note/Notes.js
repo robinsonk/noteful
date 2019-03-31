@@ -13,26 +13,27 @@ import PropTypes from 'prop-types'
 
 export default function Notes(props) {
     
-    function deleteNote(noteId) {
-        window.location.reload();
+    function deleteNote(noteId, event) {
         console.log(`delete called for ${noteId}`)
 
         fetch(`${config.API_ENDPOINT}/api/notes/${noteId}`, {
             method: 'DELETE',  
             headers: {
-                'content-type': 'NoteContext'
+                'content-type': 'application/json'
             },
         })
         .then(response => {
             if (!response.ok)
                 return response.json().then(error => Promise.reject(error))
-            return response.json()
+            window.location.reload();
         })
         .catch(error => {
             console.error(error)
         })
+        
        
     }
+
 
     return (
         <NoteContext.Consumer>
@@ -45,13 +46,13 @@ export default function Notes(props) {
                             <Link to={`/api/notes/${note.id}`}
                                 className="noteName"
                             >
-                                <h3>{note.title} | Folder: {note.folder}</h3> <br />
+                                <h3>{note.title}</h3> <br />
                             </Link>
                             Modified <Moment format="Do MMM YYYY">{note.modified}</Moment> <br /><br />
                             <button 
                                 className="remove"
                                 onClick={(event) => {
-                                    deleteNote(noteId)
+                                    deleteNote(noteId, event)
                                 }}
                             >
                                 Remove

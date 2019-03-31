@@ -10,7 +10,7 @@ function SidebarFolderNotePage(props) {
     )
     return (
         <div>
-            <NavLink exact to={`/api/folders/${folder.id}`}
+            <NavLink exact to={`/`}
                 className="folderName"
                 activeClassName="folderName-active"
             >

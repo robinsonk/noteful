@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 function deleteNote(noteId, callback) {
-    fetch(config.API_ENDPOINT `/${noteId}`, {
+    fetch(`${config.API_ENDPOINT}/api/notes/${noteId}`, {
         method: 'DELETE',   
     })
         .then(response => {

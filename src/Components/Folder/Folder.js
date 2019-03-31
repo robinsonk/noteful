@@ -12,26 +12,24 @@ import PropTypes from 'prop-types'
 
 function Folder(props) {
 
-    function deleteNote(noteId) {
-        window.location.reload();
+    function deleteNote(noteId, event, folderId) {
         console.log(`delete called for ${noteId}`)
 
         fetch(`${config.API_ENDPOINT}/api/notes/${noteId}`, {
             method: 'DELETE',  
             headers: {
-                'content-type': 'NoteContext'
-        },
-    })
+                'content-type': 'application/json'
+            },
+        })
         .then(response => {
             if (!response.ok)
                 return response.json().then(error => Promise.reject(error))
-            return response.json()
+                window.location.reload();
         })
         .catch(error => {
             console.error(error)
         })
-       
-    }
+    } 
 
     const note = props.notes.filter(note => note.folder == props.match.params.folderId)
 

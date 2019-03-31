@@ -7,26 +7,23 @@ import SidebarFolderNotePage from '../Sidebars/SidebarFolderNotePage'
 import PropTypes from 'prop-types'
 
 function FolderNotePage(props) {
-    function deleteNote(noteId, folderId) {
+    function deleteNote(noteId, event, folderId) {
         console.log(`delete called for ${noteId}`)
 
-        fetch(`${config.API_ENDPOINT}/notes/${noteId}`, {
+        fetch(`${config.API_ENDPOINT}/api/notes/${noteId}`, {
             method: 'DELETE',  
             headers: {
-                'content-type': 'NoteContext'
-        },
-    })
+                'content-type': 'application/json'
+            },
+        })
         .then(response => {
             if (!response.ok)
                 return response.json().then(error => Promise.reject(error))
-            return response.json()
+                window.location.href = `/api/folders/${folderId}`;
         })
         .catch(error => {
             console.error(error)
         })
-
-        window.location.href = `/folders/${folderId}`;
-       
     }
 
     return (
@@ -35,8 +32,8 @@ function FolderNotePage(props) {
                 {(context) => (
                     props.notes.map(note => {
                         const noteId = note.id
-                        const folderId = note.folderId
-                        if (note.id === props.match.params.noteId)
+                        const folderId = note.folder
+                        if (note.id == props.match.params.noteId)
                         return ( 
                             <div key={note.id}> 
                                 <nav>
@@ -47,7 +44,7 @@ function FolderNotePage(props) {
                                 </nav>
                                 <ul>
                                     <li key={note.id}>
-                                        <h3>{note.name}</h3> <br />
+                                        <h3>{note.title}</h3> <br />
                                         Modified <Moment format="Do MMM YYYY">{note.modified}</Moment> <br /><br />
                                         <button
                                             className="remove"
